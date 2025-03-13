@@ -1,0 +1,245 @@
+echo "# MR.GAME-UNLOKED" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/ometh2010/MR.GAME-UNLOKED.git
+git push -u origin main
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR GameUnloked</title>
+    <style>
+        /* Paste the above CSS here */
+    </style>
+</head>
+<body>
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MR GameUnloked</title>
+        <style>
+            /* Body and Background */
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                background: linear-gradient(45deg, #ff0066, #ffcc00, #00ccff, #66ff66);
+                background-size: 400% 400%;
+                animation: gradientAnimation 10s ease infinite;
+            }
+    
+            /* Keyframe Animation for Background */
+            @keyframes gradientAnimation {
+                0% {
+                    background-position: 0% 50%;
+                }
+                25% {
+                    background-position: 50% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                75% {
+                    background-position: 50% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+    
+            /* Navigation Bar */
+            .navbar {
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+            }
+    
+            .navbar select, .navbar button {
+                padding: 10px 20px;
+                background-color: rgba(0, 0, 0, 0.5);
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 1rem;
+                cursor: pointer;
+            }
+    
+            .navbar button {
+                background-color: red;
+            }
+    
+            .navbar button:hover {
+                background-color: #ff6600;
+            }
+    
+            /* Main Content */
+            .content {
+                text-align: center;
+                z-index: 1;
+            }
+    
+            h1 {
+                font-size: 3rem;
+                margin-bottom: 20px;
+            }
+    
+            .game-list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+                margin-top: 30px;
+            }
+    
+            .game {
+                background: rgba(34, 34, 34, 0.8);
+                padding: 15px;
+                border-radius: 10px;
+                width: 250px;
+                text-align: center;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            }
+    
+            img {
+                max-width: 100%;
+                border-radius: 10px;
+                height: 150px;
+            }
+    
+            .download-btn {
+                display: inline-block;
+                margin-top: 10px;
+                padding: 10px 15px;
+                background: red;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+            }
+    
+            /* Download All Button */
+            .download-all-btn {
+                margin-top: 20px;
+                padding: 15px 25px;
+                background-color: green;
+                color: white;
+                font-size: 1.2rem;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+    
+            .download-all-btn:hover {
+                background-color: #32CD32;
+            }
+        </style>
+    </head>
+    <body>
+    
+        <!-- Top Navigation Bar -->
+        <div class="navbar">
+            <select id="category">
+                <option value="all">All Categories</option>
+                <option value="Action">Action</option>
+                <option value="Puzzle">Puzzle</option>
+                <option value="Racing">Racing</option>
+                <option value="Horror">Horror</option>
+            </select>
+            <button onclick="sortGames()">Sort A-Z</button>
+        </div>
+    
+        <!-- Main Content -->
+        <div class="content">
+            <h1>Game Sharing Website</h1>
+            <p>Browse and download your favorite games!</p>
+    
+            <!-- Button to download all games -->
+            <button class="download-all-btn" onclick="downloadAllGames()">Download All Games</button>
+    
+            <div class="game-list" id="gameList">
+                <!-- Dynamically generated games will go here -->
+            </div>
+        </div>
+    
+        <script>
+            // Sample Game Data with Image Paths
+            const games = [
+                { title: "Silent Hill", creator: "Konami", year: 1999, category: "Horror", filename: "silent_hill.zip", image: "images/silent_hill.png" },
+                { title: "Super Mario", creator: "Nintendo", year: 1985, category: "Action", filename: "super_mario.zip", image: "images/super_mario.png" },
+                { title: "Tetris", creator: "Alexey Pajitnov", year: 1984, category: "Puzzle", filename: "tetris.zip", image: "images/tetris.png" },
+                { title: "Need for Speed", creator: "EA", year: 1994, category: "Racing", filename: "need_for_speed.zip", image: "images/need_for_speed.png" },
+                { title: "Zelda", creator: "Nintendo", year: 1986, category: "Action", filename: "zelda.zip", image: "images/zelda.png" },
+            ];
+    
+            // Function to display games
+            function displayGames(filteredGames) {
+                const gameList = document.getElementById('gameList');
+                gameList.innerHTML = "";  // Clear previous games
+    
+                filteredGames.forEach(game => {
+                    const gameElement = document.createElement('div');
+                    gameElement.className = 'game';
+                    gameElement.innerHTML = `
+                        <h2>${game.title}</h2>
+                        <p>Created by: ${game.creator} (${game.year})</p>
+                        <p>Category: ${game.category}</p>
+                        <img src="${game.image}" alt="${game.title} image">
+                        <a href="uploads/${game.filename}" class="download-btn" download>Download</a>
+                    `;
+                    gameList.appendChild(gameElement);
+                });
+            }
+    
+            // Function to sort games A-Z
+            function sortGames() {
+                const sortedGames = games.slice().sort((a, b) => a.title.localeCompare(b.title));
+                displayGames(sortedGames);
+            }
+    
+            // Function to filter games by category
+            function filterGames() {
+                const category = document.getElementById('category').value;
+                const filteredGames = category === 'all' ? games : games.filter(game => game.category === category);
+                displayGames(filteredGames);
+            }
+    
+            // Event listener for category filter
+            document.getElementById('category').addEventListener('change', filterGames);
+    
+            // Function to download all games as a ZIP file
+            function downloadAllGames() {
+                // Link to the zipped file containing all games
+                const allGamesZip = 'uploads/all_games.zip';  // Change this to the actual path of your zip file
+                window.location.href = allGamesZip;
+            }
+    
+            // Initial display of all games
+            displayGames(games);
+        </script>
+    
+    </body>
+    </html>
+    
+    <p>&copy; 2025 Game Website. All rights reserved.</p>
+</foot<er>
+
+
+
